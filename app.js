@@ -23,21 +23,21 @@ function displayResults() {
     {
       'id': '00001',
       'name': 'Old School Tajine',
-      'difficulty': 'Medium',
+      'difficulty': '2',
       'total_time': '45',
       'poster': 'https://burst.shopifycdn.com/photos/moroccan-meal-in-tagine.jpg?width=4460&height=4460&exif=1&iptc=1'
     },
     {
       'id': '00002',
       'name': 'Tajine bl bar9o9',
-      'difficulty': 'Medium',
-      'total_time': '55',
+      'difficulty': '3',
+      'total_time': '50',
       'poster': 'https://www.bladi.net/IMG/arton7256.jpg'
     },
     {
       'id': '00003',
       'name': 'Pizza Margarita',
-      'difficulty': 'Easy',
+      'difficulty': '1',
       'total_time': '30',
       'poster': 'https://burst.shopifycdn.com/photos/margarita-pizza-and-fresh-tomatos.jpg?width=4460&height=4460&exif=1&iptc=1'
     },
@@ -47,13 +47,17 @@ function displayResults() {
 
   results.forEach(element => {
     console.log(element);
-    let difficulty = `
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    `;
+    const checkedStar = '<span class="fa fa-star checked"></span>';
+    const normalStar = '<span class="fa fa-star"></span>';
+    let difficulty = '';
+
+    // Stars logic
+    for (let index = 1; index <= 5; index++) {
+      if (index <= element.difficulty)
+        difficulty += checkedStar;
+      else
+        difficulty += normalStar;
+    }
 
     output = `
       <div class='col-md-3'>
