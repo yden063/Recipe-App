@@ -47,16 +47,16 @@ function displayResults() {
 
   results.forEach(element => {
     console.log(element);
-    const checkedStar = '<span class="fa fa-star checked"></span>';
-    const normalStar = '<span class="fa fa-star"></span>';
+    const checkedPepper = '<i class="fas fa-pepper-hot checked"></i>';
+    const normalPepper = '<i class="fas fa-pepper-hot"></i>';
     let difficulty = '';
 
     // Stars logic
     for (let index = 1; index <= 5; index++) {
       if (index <= element.difficulty)
-        difficulty += checkedStar;
+        difficulty += checkedPepper;
       else
-        difficulty += normalStar;
+        difficulty += normalPepper;
     }
 
     output = `
