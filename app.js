@@ -172,7 +172,7 @@ function displaySteps() {
 
   recipe.steps.forEach((step) => {
     output += `
-    <li class='list-group-item'>${step.order} | ${step.description}</li>
+    <li class='list-group-item'><span class='text-primary display-4'> ${step.order}</span>${step.description}</li>
     `;
   });
 
