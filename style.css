@@ -7,3 +7,19 @@
   outline: none;
   box-shadow: none;
 }
+
+#recipes .col-md-3 .poster {
+  width: 100%;
+}
+
+#recipes .col-md-3 .well {
+  height: 450px;
+}
+
+#recipes .col-md-3 img {
+  height: 230px;
+}
+
+.checked {
+  color: orange;
+}
