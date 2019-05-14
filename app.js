@@ -1,4 +1,4 @@
-const results = [
+const elementsDB = [
   {
     'id': '00001',
     'name': 'Old School Tajine',
@@ -80,12 +80,24 @@ if (searchForm) {
 
 function getSearchResults(search) {
   sessionStorage.setItem('search', search);
+  const resultsArray = new Array();
+
+  elementsDB.forEach((recipe) => {
+    if (recipe.name.toLowerCase().includes(search.toLowerCase()))
+      resultsArray.push(recipe);
+  });
+
+  // Add object to the session storage 
+  // and redirect to results page
+  sessionStorage.setItem('results', JSON.stringify(resultsArray));
   window.location = 'search_results.html';
 }
 
 function displayResults() {
-  let output = '';
+  // Extract session storage results
+  const results = JSON.parse(sessionStorage.getItem('results'));
 
+  let output = '';
   results.forEach(element => {
     console.log(element);
     let difficulty = getFormattedDifficulty(element);
@@ -117,8 +129,8 @@ if (recipes) {
 
 function getRecipeById(id) {
   // Search for the element
-  for (let index = 0; index < results.length; index++) {
-    const element = results[index];
+  for (let index = 0; index < elementsDB.length; index++) {
+    const element = elementsDB[index];
 
     if (element.id == id)
       return element;
@@ -159,7 +171,7 @@ function displayIngredients() {
 function displayDifficulty() {
   const recipe = getRecipeObject();
   const difficulty = document.querySelector('#difficulty');
-  
+
   difficulty.innerHTML = getFormattedDifficulty(recipe);
 }
 
