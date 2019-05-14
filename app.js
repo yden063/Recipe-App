@@ -88,17 +88,7 @@ function displayResults() {
 
   results.forEach(element => {
     console.log(element);
-    const checkedPepper = '<i class="fas fa-pepper-hot checked"></i>';
-    const normalPepper = '<i class="fas fa-pepper-hot"></i>';
-    let difficulty = '';
-
-    // Stars logic
-    for (let index = 1; index <= 5; index++) {
-      if (index <= element.difficulty)
-        difficulty += checkedPepper;
-      else
-        difficulty += normalPepper;
-    }
+    let difficulty = getFormattedDifficulty(element);
 
     output = `
       <div class='col-md-3' id='${element.id}'>
@@ -142,6 +132,7 @@ function displayDetails() {
   console.log(recipe);
   displayName();
   displayIngredients();
+  displayDifficulty();
   displaySteps();
 }
 
@@ -165,6 +156,13 @@ function displayIngredients() {
   });
 }
 
+function displayDifficulty() {
+  const recipe = getRecipeObject();
+  const difficulty = document.querySelector('#difficulty');
+  
+  difficulty.innerHTML = getFormattedDifficulty(recipe);
+}
+
 function displaySteps() {
   const steps = document.querySelector('#steps');
   const recipe = getRecipeObject();
@@ -184,3 +182,19 @@ function displaySteps() {
 function getRecipeObject() {
   return JSON.parse(sessionStorage.getItem('recipe_details'));
 }
+
+function getFormattedDifficulty(element) {
+  // Pepper difficulty format
+  const checkedPepper = '<i class="fas fa-pepper-hot checked"></i>';
+  const normalPepper = '<i class="fas fa-pepper-hot"></i>';
+  let difficulty = '';
+
+  for (let index = 1; index <= 5; index++) {
+    if (index <= element.difficulty)
+      difficulty += checkedPepper;
+    else
+      difficulty += normalPepper;
+  }
+
+  return difficulty;
+}    
