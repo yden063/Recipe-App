@@ -96,8 +96,15 @@ function getSearchResults(search) {
 function displayResults() {
   // Extract session storage results
   const results = JSON.parse(sessionStorage.getItem('results'));
+  const search = sessionStorage.getItem('search');
+  const elementSearched = document.querySelector('#element-searched');
 
+  // Displaying the h1 title
+  elementSearched.innerHTML = `Results for ${search}`;
+
+  // Rendering the results
   let output = '';
+
   results.forEach(element => {
     console.log(element);
     let difficulty = getFormattedDifficulty(element);
