@@ -227,21 +227,13 @@ if (addIngredientBtn) {
     e.preventDefault();
     console.log('adding an ingredient');
     const ingredient = "Pepper";
-
-    if (sessionStorage.getItem('ingredients') == null) {
-      sessionStorage.setItem('ingredients', '[]');
-    }
-
-    // Retrieving the ingredients from 
-    // the session storage
-    const ingredientsStorage = sessionStorage.getItem('ingredients');
-    const ingredients = JSON.parse(ingredientsStorage);
+    const ingredients = getIngredientsFromSessionStorage();
 
     // Adding the ingredient to the list
     // and updating the session storage
     ingredients.push(ingredient);
     sessionStorage.setItem('ingredients', JSON.stringify(ingredients));
-
+    
     displayIngredients(ingredients);
   });
 }
