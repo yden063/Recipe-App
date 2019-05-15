@@ -216,4 +216,50 @@ function getFormattedDifficulty(element) {
   }
 
   return difficulty;
-}    
+}
+
+// Ingredients functionnality
+const addIngredientBtn = document.querySelector('#add-ingredient-btn');
+
+// Handle the adding event
+if (addIngredientBtn) {
+  addIngredientBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log('adding an ingredient');
+    const ingredient = "Pepper";
+
+    if (sessionStorage.getItem('ingredients') == null) {
+      sessionStorage.setItem('ingredients', '[]');
+    }
+
+    // Retrieving the ingredients from 
+    // the session storage
+    const ingredientsStorage = sessionStorage.getItem('ingredients');
+    const ingredients = JSON.parse(ingredientsStorage);
+
+    // Adding the ingredient to the list
+    // and updating the session storage
+    ingredients.push(ingredient);
+    sessionStorage.setItem('ingredients', JSON.stringify(ingredients));
+
+    displayIngredients(ingredients);
+  });
+}
+
+// Displaying the ingredients
+function displayIngredients(ingredients) {
+  const ingredientsTBody = document.querySelector('#ingredients');
+  ingredientsTBody.innerHTML = '';
+
+  ingredients.forEach((ingredient, index) => {
+    const output = `
+      <th scope="row">${index + 1}</th>
+      <td>${ingredient}</td>
+    `;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = output;
+    ingredientsTBody.appendChild(tr);
+  });
+}
+

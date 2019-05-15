@@ -8,10 +8,11 @@
   <title>Recipe Inspiration</title>
   <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
-<body onload="displayResults()">
+<body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
       <a class="navbar-brand" href="#">Recipe Inspiration</a>
@@ -23,7 +24,7 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Recipe List</a>
@@ -40,10 +41,59 @@
   </nav>
 
   <div class="container">
-    <h1 class="display-4">Add your recipe</h1>
+    <h1 class="display-4">Add your <span class="text-success">Recipe</span></h1>
 
-    <!-- Recipe results -->
-    <div class="row" id="recipes"></div>
+    <!-- Adding form -->
+    <form id="add-recipe">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-6">
+          <div class="form-group">
+            <label for="recipe-name">Name</label>
+            <input type="text" class="form-control" id="recipe-name" placeholder="Recipe name">
+          </div>
+          <div class="form-group">
+            <label for="recipe-ingredients">Ingredients</label>
+            <input type="text" class="form-control" id="recipe-ingredients"
+              placeholder="Type an ingredient and add it to the list">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-info" id="add-ingredient-btn">Add the ingredient</button>
+          </div>
+
+          <!-- Ingredients list -->
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ingredient name</th>
+              </tr>
+            </thead>
+
+            <!-- Ingredients displaying -->
+            <tbody id="ingredients"></tbody>
+          </table>
+        </div>
+        <!-- End Left Column -->
+
+        <!-- Right Column -->
+        <div class="col-6">
+          <div class="form-group">
+            <label for="recipe-name">Name</label>
+            <input type="text" class="form-control" id="recipe-name" aria-describedby="emailHelp"
+              placeholder="Recipe name">
+          </div>
+          <div class="form-group">
+            <label for="recipe-ingredients">Ingredients</label>
+            <input type="text" class="form-control" id="recipe-name" aria-describedby="emailHelp"
+              placeholder="Recipe name">
+          </div>
+        </div>
+        <!-- End Left Column -->
+      </div>
+    </form>
+
+
   </div>
   <script src="app.js"></script>
 </body>
