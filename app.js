@@ -263,3 +263,6 @@ function displayIngredients(ingredients) {
   });
 }
 
+function displayElements() {
+  displayIngredients();
+}
