@@ -264,5 +264,17 @@ function displayIngredients(ingredients) {
 }
 
 function displayElements() {
-  displayIngredients();
+  const ingredients = getIngredientsFromSessionStorage();
+  displayIngredients(ingredients);
+}
+
+function getIngredientsFromSessionStorage() {
+  if (sessionStorage.getItem('ingredients') == null) {
+    sessionStorage.setItem('ingredients', '[]');
+  }
+
+  const ingredientsStorage = sessionStorage.getItem('ingredients');
+  const ingredients = JSON.parse(ingredientsStorage);
+
+  return ingredients;
 }
