@@ -226,7 +226,8 @@ if (addIngredientBtn) {
   addIngredientBtn.addEventListener('click', (e) => {
     e.preventDefault();
     console.log('adding an ingredient');
-    const ingredient = "Pepper";
+    const ingredient = document.querySelector('#recipe-ingredient-name').value;
+    console.log(ingredient);
     const ingredients = getIngredientsFromSessionStorage();
 
     // Adding the ingredient to the list
@@ -234,12 +235,15 @@ if (addIngredientBtn) {
     ingredients.push(ingredient);
     sessionStorage.setItem('ingredients', JSON.stringify(ingredients));
 
-    displayIngredients(ingredients);
+    displayTableIngredients(ingredients);
+
+    // Clear the input
+    document.querySelector('#recipe-ingredient-name').value = '';
   });
 }
 
 // Displaying the ingredients
-function displayIngredients(ingredients) {
+function displayTableIngredients(ingredients) {
   ingredientsTBody.innerHTML = '';
 
   ingredients.forEach((ingredient, index) => {
@@ -258,7 +262,7 @@ function displayIngredients(ingredients) {
 
 function displayElements() {
   const ingredients = getIngredientsFromSessionStorage();
-  displayIngredients(ingredients);
+  displayTableIngredients(ingredients);
 }
 
 function getIngredientsFromSessionStorage() {
@@ -295,6 +299,6 @@ if (ingredientsTBody) {
     });
 
     sessionStorage.setItem('ingredients', JSON.stringify(ingredientsNew));
-    displayIngredients(ingredientsNew);
+    displayTableIngredients(ingredientsNew);
   });
 }
