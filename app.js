@@ -233,23 +233,24 @@ if (addIngredientBtn) {
     // and updating the session storage
     ingredients.push(ingredient);
     sessionStorage.setItem('ingredients', JSON.stringify(ingredients));
-    
+
     displayIngredients(ingredients);
   });
 }
 
 // Displaying the ingredients
 function displayIngredients(ingredients) {
-  const ingredientsTBody = document.querySelector('#ingredients');
   ingredientsTBody.innerHTML = '';
 
   ingredients.forEach((ingredient, index) => {
     const output = `
       <th scope="row">${index + 1}</th>
       <td>${ingredient}</td>
+      <td><button class='btn btn-danger'>X</button></td>
     `;
 
     const tr = document.createElement('tr');
+    tr.setAttribute('id', `${ingredient}`);
     tr.innerHTML = output;
     ingredientsTBody.appendChild(tr);
   });
@@ -269,4 +270,31 @@ function getIngredientsFromSessionStorage() {
   const ingredients = JSON.parse(ingredientsStorage);
 
   return ingredients;
+}
+
+// Remove an ingredient
+const ingredientsTBody = document.querySelector('#ingredients');
+if (ingredientsTBody) {
+  ingredientsTBody.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const tBodyNode = e.target.parentNode.parentNode.parentNode;
+    const trNode = e.target.parentNode.parentNode;
+    const ingredientName = trNode.getAttribute('id');
+    //tBodyNode.removeChild(trNode);
+
+    const ingredients = getIngredientsFromSessionStorage();
+    const ingredientsNew = new Array();
+
+    ingredients.forEach((ingredient) => {
+      if (ingredient != ingredientName) {
+        console.log(ingredient);
+        console.log(ingredientName);
+        ingredientsNew.push(ingredient);
+      }
+    });
+
+    sessionStorage.setItem('ingredients', JSON.stringify(ingredientsNew));
+    displayIngredients(ingredientsNew);
+  });
 }
