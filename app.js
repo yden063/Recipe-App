@@ -435,6 +435,10 @@ if (addRecipeForm) {
 
     // Adding it the session storage
     sessionStorage.setItem('recipes', JSON.stringify(elementsDB));
+
+    // Cleaning session storage elements
+    sessionStorage.setItem('ingredients', '[]');
+    sessionStorage.setItem('steps', '[]');
   });
 }
 
