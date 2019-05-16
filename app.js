@@ -450,7 +450,7 @@ if (sessionStorage.getItem('recipes') == null) {
 
 function buildObject(recipeName, ingredients, steps, poster) {
   const recipe = {
-    'id': '99845',
+    'id': generateId(),
     'name': recipeName,
     'difficulty': '3',
     'total_time': '20',
@@ -461,3 +461,14 @@ function buildObject(recipeName, ingredients, steps, poster) {
 
   return recipe;
 }
+
+function generateId() {
+  const min = 1;
+  const max = 99999999;
+  let generatedId = (Math.random() * (max - min)) + min;
+
+  return Math.trunc(generatedId);
+}
+
+console.log(generateId());
+
