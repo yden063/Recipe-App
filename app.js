@@ -263,6 +263,9 @@ function displayTableIngredients(ingredients) {
 function displayElements() {
   const ingredients = getIngredientsFromSessionStorage();
   displayTableIngredients(ingredients);
+
+  const steps = getStepsFromSession();
+  displayStepsCollapse(steps);
 }
 
 function getIngredientsFromSessionStorage() {
@@ -302,3 +305,110 @@ if (ingredientsTBody) {
     displayTableIngredients(ingredientsNew);
   });
 }
+
+// Steps functionnality
+const stepsDiv = document.querySelector('#steps');
+const addStepBtn = document.querySelector('#add-step-btn');
+
+// Handle event
+addStepBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  const description = document.querySelector('#recipe-step-text').value;
+  const steps = getStepsFromSession();
+  const step = getStepObjectFromText(description, steps.length + 1);
+
+  steps.push(step);
+  console.log(steps);
+
+  addToSessionStorage(steps);
+  displayStepsCollapse(steps);
+});
+
+function getStepObjectFromText(description, order) {
+  const step = {
+    'order': `${order}`,
+    'description': `${description}`
+  };
+
+  return step;
+}
+
+function getStepsFromSession() {
+  if (sessionStorage.getItem('steps') == null) {
+    sessionStorage.setItem('steps', '[]');
+  }
+
+  const steps = JSON.parse(sessionStorage.getItem('steps'));
+
+  return steps;
+}
+
+function addToSessionStorage(steps) {
+  sessionStorage.setItem('steps', JSON.stringify(steps));
+}
+
+function displayStepsCollapse(steps) {
+  // Clear the previous elements
+  stepsDiv.innerHTML = '';
+
+  steps.forEach((step) => {
+    console.log(step.order);
+    // Create the different elements
+    const card = createCard();
+    const link = createLink(step);
+    const collapse = createCollapse(step);
+
+    // Adding the link reference
+    // and collapse to the card
+    card.appendChild(link);
+    card.appendChild(collapse);
+
+    // Adding the card to the steps div
+    stepsDiv.appendChild(card);
+  });
+}
+
+function createCollapse(step) {
+  const collapse = document.createElement('collapse');
+  collapse.setAttribute('id', `step-${step.order}`);
+  collapse.setAttribute('class', 'collapse');
+
+  // Add the card and the description to the collapse
+  output = `
+  <div class="card-body">
+    <p class="card-text">${step.description}</p>
+  </div>`;
+  collapse.innerHTML = output;
+
+  return collapse;
+}
+
+function createLink(step) {
+  const link = document.createElement('a');
+  const attributes = {
+    'href': `#step-${step.order}`,
+    'data-toggle': 'collapse',
+    'role': 'button',
+    'aria-expanded': 'false',
+    'aria-controls': `step-${step.order}`
+  };
+
+  // Adding the attributes
+  for (const attribute in attributes) {
+    link.setAttribute(attribute, attributes[attribute]);
+  }
+
+  // Add the h5 to the link
+  let output = `<h5 class="card-header">Step ${step.order}</h5>`;
+  link.innerHTML = output;
+
+  return link;
+}
+
+function createCard() {
+  const card = document.createElement('div');
+  card.setAttribute('class', 'card');
+
+  return card;
+}
+

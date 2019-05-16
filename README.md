@@ -6,7 +6,7 @@ You don't know how to do it? This application help you find inspiration, search 
 * [x] Create the index.html page
 * [x] Create the results.html page
 * [x] Create recipe_details.html page
-* [ ] Link pages
+* [x] Link pages
 * [x] Add the "Results for {name}" information
 * [x] Create add_recipe.html
 
@@ -18,5 +18,5 @@ You don't know how to do it? This application help you find inspiration, search 
 * [x] Implement the search logic
 * [~] Add a recipe
   * [x] Add ingredients functionnality
-  * [ ] Add steps functionnality
+  * [~] Add steps functionnality
 * [ ] Edit a recipe 
