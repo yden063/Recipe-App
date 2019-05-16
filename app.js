@@ -426,11 +426,12 @@ if (addRecipeForm) {
     e.preventDefault();
 
     const recipeName = document.querySelector('#recipe-name').value;
+    const poster = document.querySelector('#recipe-poster').value;
     const ingredients = getIngredientsFromSessionStorage();
     const steps = getStepsFromSession();
 
     // Building the JSON object
-    const recipe = buildObject(recipeName, ingredients, steps);
+    const recipe = buildObject(recipeName, ingredients, steps, poster);
     elementsDB.push(recipe);
 
     // Adding it the session storage
@@ -447,13 +448,13 @@ if (sessionStorage.getItem('recipes') == null) {
   sessionStorage.setItem('recipes', JSON.stringify(elementsDB));
 }
 
-function buildObject(recipeName, ingredients, steps) {
+function buildObject(recipeName, ingredients, steps, poster) {
   const recipe = {
     'id': '99845',
     'name': recipeName,
     'difficulty': '3',
     'total_time': '20',
-    'poster': 'https://burst.shopifycdn.com/photos/moroccan-meal-in-tagine.jpg?width=4460&height=4460&exif=1&iptc=1',
+    'poster': poster,
     'ingredients': ingredients,
     'steps': steps
   };

@@ -17,5 +17,6 @@ You don't know how to do it? This application help you find inspiration, search 
 * [x] Extract informations and display them on the details page
 * [x] Implement the search logic
 * [x] Add a recipe
+  * [ ] Generate random key for recipe id
   * [x] Add ingredients functionnality
   * [x] Add steps functionnality
