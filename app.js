@@ -432,10 +432,11 @@ if (addRecipeForm) {
 
     // Building the JSON object
     const recipe = buildObject(recipeName, ingredients, steps, poster);
-    elementsDB.push(recipe);
 
     // Adding it the session storage
-    sessionStorage.setItem('recipes', JSON.stringify(elementsDB));
+    const elements = JSON.parse(sessionStorage.getItem('recipes'));
+    elements.push(recipe);
+    sessionStorage.setItem('recipes', JSON.stringify(elements));
 
     // Cleaning session storage elements
     sessionStorage.setItem('ingredients', '[]');
