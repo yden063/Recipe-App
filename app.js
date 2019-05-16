@@ -441,6 +441,11 @@ if (addRecipeForm) {
     // Cleaning session storage elements
     sessionStorage.setItem('ingredients', '[]');
     sessionStorage.setItem('steps', '[]');
+
+    // Redirecting to the index
+    // to display success notification
+    sessionStorage.setItem('notification', '1');
+    window.location = 'index.html';
   });
 }
 
@@ -453,7 +458,7 @@ function buildObject(recipeName, ingredients, steps, poster) {
   const recipe = {
     'id': generateId(),
     'name': recipeName,
-    'difficulty': '3',
+    'difficulty': getDifficultyPepper(),
     'total_time': '20',
     'poster': poster,
     'ingredients': ingredients,
@@ -473,3 +478,62 @@ function generateId() {
 
 console.log(generateId());
 
+// Pepper difficulty functionnality
+const difficultyDiv = document.querySelector('#difficulty-pepper');
+
+if (difficultyDiv) {
+  // Event: Difficulty clicking 
+  difficultyDiv.addEventListener('click', (e) => {
+    const pepperID = e.target.getAttribute('id').split('-')[1];
+
+    if (pepperID != null || pepperID != undefined) {
+      for (let index = 1; index <= 5; index++) {
+        const pepperIcon = document.querySelector(`#pepper-${index}`);
+
+        if (index <= pepperID) {
+          pepperIcon.setAttribute('class', 'fas fa-pepper-hot checked');
+        } else {
+          pepperIcon.setAttribute('class', 'fas fa-pepper-hot');
+        }
+      }
+    }
+
+    getDifficultyPepper();
+  });
+}
+
+function getDifficultyPepper() {
+  // Count the time the pepper is checked
+  let difficulty = 0;
+
+  for (let index = 1; index <= 5; index++) {
+    const pepperIcon = document.querySelector(`#pepper-${index}`);
+
+    if (pepperIcon.getAttribute('class') == 'fas fa-pepper-hot checked') {
+      difficulty = difficulty + 1;
+    }
+  }
+
+  return difficulty;
+}
+
+function displayNotification() {
+  const notification = sessionStorage.getItem('notification');
+
+  if (notification != null && notification != undefined) {
+    if (notification == '1') {
+      const notificationDiv = document.querySelector('#notification');
+      notificationDiv.innerHTML = `
+      <br>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        The recipe has been added successfully!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      `;
+
+      sessionStorage.setItem('notification', '0');
+    }
+  }
+}
