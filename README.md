@@ -16,7 +16,6 @@ You don't know how to do it? This application help you find inspiration, search 
 * [x] Add click functionnality on a recipe to have further details
 * [x] Extract informations and display them on the details page
 * [x] Implement the search logic
-* [~] Add a recipe
+* [x] Add a recipe
   * [x] Add ingredients functionnality
-  * [~] Add steps functionnality
-* [ ] Edit a recipe 
+  * [x] Add steps functionnality

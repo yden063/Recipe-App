@@ -82,7 +82,9 @@ function getSearchResults(search) {
   sessionStorage.setItem('search', search);
   const resultsArray = new Array();
 
-  elementsDB.forEach((recipe) => {
+  const recipeList = JSON.parse(sessionStorage.getItem('recipes'));
+
+  recipeList.forEach((recipe) => {
     if (recipe.name.toLowerCase().includes(search.toLowerCase()))
       resultsArray.push(recipe);
   });
@@ -136,8 +138,10 @@ if (recipes) {
 
 function getRecipeById(id) {
   // Search for the element
-  for (let index = 0; index < elementsDB.length; index++) {
-    const element = elementsDB[index];
+  const elements = JSON.parse(sessionStorage.getItem('recipes'));
+
+  for (let index = 0; index < elements.length; index++) {
+    const element = elements[index];
 
     if (element.id == id)
       return element;
@@ -311,18 +315,20 @@ const stepsDiv = document.querySelector('#steps');
 const addStepBtn = document.querySelector('#add-step-btn');
 
 // Handle event
-addStepBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  const description = document.querySelector('#recipe-step-text').value;
-  const steps = getStepsFromSession();
-  const step = getStepObjectFromText(description, steps.length + 1);
+if (addStepBtn) {
+  addStepBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const description = document.querySelector('#recipe-step-text').value;
+    const steps = getStepsFromSession();
+    const step = getStepObjectFromText(description, steps.length + 1);
 
-  steps.push(step);
-  console.log(steps);
+    steps.push(step);
+    console.log(steps);
 
-  addToSessionStorage(steps);
-  displayStepsCollapse(steps);
-});
+    addToSessionStorage(steps);
+    displayStepsCollapse(steps);
+  });
+}
 
 function getStepObjectFromText(description, order) {
   const step = {
@@ -412,3 +418,41 @@ function createCard() {
   return card;
 }
 
+// Event: Submitting form to add the recipe
+const addRecipeForm = document.querySelector('#add-recipe');
+
+if (addRecipeForm) {
+  addRecipeForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const recipeName = document.querySelector('#recipe-name').value;
+    const ingredients = getIngredientsFromSessionStorage();
+    const steps = getStepsFromSession();
+
+    // Building the JSON object
+    const recipe = buildObject(recipeName, ingredients, steps);
+    elementsDB.push(recipe);
+
+    // Adding it the session storage
+    sessionStorage.setItem('recipes', JSON.stringify(elementsDB));
+  });
+}
+
+// Adding the element to the session storage
+if (sessionStorage.getItem('recipes') == null) {
+  sessionStorage.setItem('recipes', JSON.stringify(elementsDB));
+}
+
+function buildObject(recipeName, ingredients, steps) {
+  const recipe = {
+    'id': '99845',
+    'name': recipeName,
+    'difficulty': '3',
+    'total_time': '20',
+    'poster': 'https://burst.shopifycdn.com/photos/moroccan-meal-in-tagine.jpg?width=4460&height=4460&exif=1&iptc=1',
+    'ingredients': ingredients,
+    'steps': steps
+  };
+
+  return recipe;
+}
