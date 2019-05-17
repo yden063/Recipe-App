@@ -1,3 +1,13 @@
+import elementsDB from "./MockDB.js";
+
+// Adding the element to the session storage
+// Doing this once // 
+if (sessionStorage.getItem('recipes') == null) {
+  sessionStorage.setItem('recipes', JSON.stringify(elementsDB.elementsDB));
+}
+
+displayNotification();
+
 function displayNotification() {
   const notification = sessionStorage.getItem('notification');
 
@@ -19,6 +29,7 @@ function displayNotification() {
   }
 }
 
+// Event: Search submitting form
 document.getElementById('search').addEventListener('submit', function (e) {
   e.preventDefault();
 
